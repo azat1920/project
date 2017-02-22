@@ -1,0 +1,79 @@
+﻿@using project.Models;
+
+@{
+    <head>
+        <title>Список поваров</title>
+        <link rel="stylesheet" href="~/Content/schedule.css" />
+    </head>
+}
+<h2>Расписание @ViewBag.num ресторана</h2>
+    Номер ресторана
+<div style="display:inline-block">
+    <form action="/Schedule/Index" method="get">
+        <select name="id" size="1">
+            @for (int i = 0; i < 20; i++)
+            {
+                <option name="id" value="@i">@(i + 1)</option>
+            }
+        </select>
+        <input type="submit" class="button" style="background-color:#eeeeee" value="Выбрать" />
+    </form>
+</div>
+    <div style="display:inline-block">
+    @using (Html.BeginForm("Cooks", "Cooks"))
+    {
+        <input type="submit" class="button" style="background-color:#eeeeee" value="Повара" />
+    }
+</div>
+<div style="display:inline-block">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <input type="submit" class="button" style="background-color:#eeeeee" value="Главная" />
+    }
+</div>
+
+@{
+    List<Schedule> days = ViewBag.schedule;
+
+    <table>
+
+        <tr class="header">
+            <td>День месяца</td>
+            <td>ФИО</td>
+            <td>Время работы</td>
+        </tr>
+
+        @for (int i = 0; i < ViewBag.days_count; i++)
+        {
+            <tbody>
+                @{
+            int k = 0;
+            foreach (var item in days.FindAll(c => c.numberOfDay == i))
+            {
+
+                if (k == 0)
+                {
+                    <tr>
+                        <td class="no" rowspan="@days.FindAll(c => c.numberOfDay == i).Count">@(i+1)</td>
+                        <td>@item.name</td>
+                        <td>@item.begin:00 - @item.end:00</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@item.name</td>
+                        <td>@item.begin:00 - @item.end:00</td>
+                    </tr>
+                    }
+                    k++;
+
+                    }
+                }
+
+            </tbody>
+
+        }
+
+    </table>
+        }

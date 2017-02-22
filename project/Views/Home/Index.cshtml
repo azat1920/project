@@ -1,0 +1,34 @@
+﻿@{
+<head>
+    <title>Редактирование повара</title>
+    <link rel="stylesheet" href="~/Content/cooks.css" />
+</head>
+    }
+
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <div style="padding-top:25%;
+                align-content:center;
+                width:inherit;
+                padding-left:45%">
+       
+        @using (Html.BeginForm("Cooks", "Cooks"))
+        {
+            <input type="submit" class="button" value="Повара" />
+        }
+        @using (Html.BeginForm("Create", "CreateCook", FormMethod.Get))
+        {
+            <input type="submit" class="button" value="Добавить повара" />
+        }
+        @using (Html.BeginForm("Index", "Schedule", FormMethod.Get))
+        {
+            <input type="submit" class="button" value="Расписание" />
+        }
+
+        
+    </div>
+</body>
+</html>

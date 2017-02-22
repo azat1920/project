@@ -1,0 +1,55 @@
+﻿body {
+}
+
+tbody:nth-child(2n){
+    background-color: #f5f5f5;
+}
+tbody:hover{
+    background-color: #eeeeee;
+}
+
+.rec:hover{
+    background-color:#d3d3d3;
+}
+
+tr.header{
+    background-color: #b7b6b6;
+    height:50px;
+}
+
+td{
+    text-align:center;
+    align-content:center;
+    border-style:solid;
+    border-color:#eeeeee;
+    border-width:1px;
+    
+}
+
+table{
+    border-width:1px;
+    border-style:solid;
+    border-collapse:collapse;
+    width:100%;
+    height:auto;
+    border-color:inherit;   
+}
+
+.button{
+    
+    width:150px;
+    text-align:center;
+    align-content:center;
+    padding:8px;
+    text-decoration:none;
+    color:#000000;   
+    background-color: #d6d6d6;
+    border-radius:1px;
+    border:none;
+      
+}
+
+.button:active{
+    border:none;
+    outline:none;
+}

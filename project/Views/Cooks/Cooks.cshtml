@@ -1,0 +1,103 @@
+﻿@using project.Models
+
+@{
+    ViewBag.Title = "Список поваров";
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список поваров</title>
+    <link rel="stylesheet" href="~/Content/cooks.css" />
+</head>
+
+<body>
+
+    <div style="display:inline-block">
+        @using (Html.BeginForm("Create", "CreateCook", FormMethod.Get))
+        {
+            <input type="submit" class="button" style="background-color:#eeeeee" value="Добавить повара" />
+        }
+    </div>
+    <div style="display:inline-block">
+        @using (Html.BeginForm("Index", "Schedule", FormMethod.Get))
+        {
+            <input type="submit" class="button" style="background-color:#eeeeee" value="Расписание" />
+        }
+    </div>  
+    <div style="display:inline-block">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <input type="submit" class="button" style="background-color:#eeeeee" value="Главная" />
+        }
+    </div>
+    @if (ViewBag.CountOfCooks == 0)
+    {
+        <div style="display:inline-block">
+            @using (Html.BeginForm("Index", "AddRandomCooks"))
+            {
+                <input type="submit" class="button" style="background-color:#eeeeee; width:auto" value="Добавить 100 поваров" />
+            }
+        </div>
+    }
+    
+    <div>
+        <table>
+
+            <tr class="header">
+                <td>ИД</td> 
+                <td>Фамилия</td>
+                <td>Имя</td>
+                <td>Отчество</td>
+                <td>Тип смены</td>
+                <td>График работы</td>
+                <td>Количество часов</td>
+                <td>Квалификация</td>
+                <td></td>
+                <td></td>
+            </tr>
+
+          
+
+            @foreach (var b in ViewBag.Cooks)
+            {
+                
+                <tr >
+                    <td><p>@b.id</p></td>
+                    <td><p>@b.surname</p></td>
+                    <td><p>@b.first_name</p></td>
+                    @if (b.patronymic != null)
+                    {
+                        <td><p>@b.patronymic</p></td>
+                    }
+                    else
+                    {
+                        <td><p>-</p></td>
+                    }
+
+
+                    <td><p>@b.shift_type</p></td>
+                    <td><p>@b.schedule</p></td>
+                    <td><p>@b.hours</p></td>
+                    <td>
+
+                        @{
+                        List<Qualification> list = b.qualifications;
+                        var qualifications = list.OrderBy(i => i.id).ToList();
+                        }
+
+                        @foreach (var k in qualifications)
+                        {
+                            <a class="qual">@k.qualification</a>
+                        }
+                    </td>
+                    <td><a class="button" href="/EditCook/Edit/@b.id">Редактировать</a></td>
+                    <td><a class="button" href="/DeleteCook/Delete/@b.id">Удалить</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

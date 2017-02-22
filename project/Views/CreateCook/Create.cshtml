@@ -1,0 +1,81 @@
+﻿@using project.Models
+@model Cook
+@{
+    ViewBag.Title = "Добавление нового повара";
+
+}
+
+<html>
+<head>
+    <title>Добавление повара</title>
+    <link rel="stylesheet" href="~/Content/cooks.css" />
+</head>
+<body>
+    @{
+        if (@ViewBag.Invalide)
+        {
+            <p>Введите корректные данные</p>
+               ViewBag.Invalide = false;
+        }   
+    }
+
+    <h2>Добавление нового повара</h2>
+    <fieldset>
+        @using (Html.BeginForm("Create", "CreateCook"))
+        {
+
+
+            <table>
+                <tr>
+                    <td class="info">Фамилия</td>
+                    <td>@Html.EditorFor(model => model.surname)</td>
+                </tr>
+                <tr>
+                    <td class="info">Имя</td>
+                    <td>@Html.EditorFor(model => model.first_name)</td>
+                </tr>
+                <tr>
+                    <td class="info">Отчество</td>
+                    <td>@Html.EditorFor(model => model.patronymic)</td>
+                </tr>
+                <tr>
+                    <td class="info">Тип смены</td>
+                    <td>@Html.TextBoxFor(model => model.shift_type, null, new { placeholder = @"утренняя/вечерняя" })</td>
+                </tr>
+                <tr>
+
+                    <td class="info">График работы</td>
+                    <td>@Html.TextBoxFor(model => model.schedule, new { placeholder = "5/2 или 2/2" })</td>
+                </tr>
+                <tr>
+                    <td class="info">Количество часов</td>
+                    <td>@Html.TextBoxFor(model => model.hours, new { placeholder = "от 4 до 10" })</td>
+                </tr>
+                <tr>
+                    <td class="info">Квалификации</td>
+                    <td style="text-align: left; padding-left:60px">
+                        @{
+                            List<Qualification> list = ViewBag.Qualifications;
+                            foreach (var item in list)
+                            {
+                                <input type="checkbox" name="qualifications" value=@item.id /> @item.qualification<br />
+                            }
+                        }
+                    </td>
+                </tr>
+            </table>
+    <p><input type="submit" class="button" value="Добавить" /></p>
+
+        }
+    </fieldset>
+ 
+    
+                @using (Html.BeginForm("Cooks", "Cooks", FormMethod.Get))
+                {
+                    <input type="submit" style="width:auto" class="button" value="Перейти к списку поваров" />
+                }
+            
+     
+
+</body>
+</html>
