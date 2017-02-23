@@ -1,0 +1,25 @@
+﻿CREATE TABLE Cooks (
+	id int PRIMARY KEY IDENTITY(1,1),
+	surname NVARCHAR(20) NOT NULL,
+	first_name NVARCHAR(20) NOT NULL,
+	patronymic NVARCHAR(20),
+	shift_type NCHAR(8),
+	schedule NCHAR(3) NOT NULL,
+	hours int NOT NULL,
+
+	CHECK (hours >=4 AND hours<=10),
+	CHECK (shift_type in (N'вечерняя' , N'утренняя', NULL)),
+	CHECK (schedule in (N'5/2', N'2/2'))
+
+
+)	
+
+CREATE TABLE QUALIFICATIONS(
+	id int PRIMARY KEY IDENTITY(1,1),
+	qualification NVARCHAR(11) NOT NULL
+)
+
+CREATE TABLE QualificationCooks(
+	Qualification_id INT NOT NULL FOREIGN KEY REFERENCES QUALIFICATIONS(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	Cook_id INT NOT NULL FOREIGN KEY REFERENCES COOKS(id) ON DELETE CASCADE ON UPDATE CASCADE
+)
